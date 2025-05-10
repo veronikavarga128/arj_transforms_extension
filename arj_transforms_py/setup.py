@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'transform = arj_transforms_py.transforms:main'
+            'transform = arj_transforms_py.transforms:main',
+            'point_filter = arj_transforms_py.point_filter:main'
         ],
     },
 )
