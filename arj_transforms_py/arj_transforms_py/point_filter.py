@@ -19,6 +19,12 @@ class PointFilterNode(Node):
 
         self.create_timer(0.1, self.timer_callback)
 
+        self.declare_parameter('x_min', -2.0)
+        self.declare_parameter('x_max', 2.0)
+        self.declare_parameter('y_min', -2.0)
+        self.declare_parameter('y_max', 2.0)
+
+
         self.point_id = 0
 
     def timer_callback(self):
@@ -37,7 +43,13 @@ class PointFilterNode(Node):
 
             pt_map = do_transform_point(pt, transform)
 
-            in_region = -2.0 <= pt_map.point.x <= 2.0 and -2.0 <= pt_map.point.y <= 2.0
+            x_min = self.get_parameter('x_min').get_parameter_value().double_value
+            x_max = self.get_parameter('x_max').get_parameter_value().double_value
+            y_min = self.get_parameter('y_min').get_parameter_value().double_value
+            y_max = self.get_parameter('y_max').get_parameter_value().double_value
+
+            in_region = x_min <= pt_map.point.x <= x_max and y_min <= pt_map.point.y <= y_max
+
 
             marker = Marker()
             marker.header.frame_id = 'map'
